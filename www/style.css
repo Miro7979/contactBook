@@ -1,0 +1,37 @@
+@import url('https://fonts.googleapis.com/css?family=Arimo&display=swap');
+
+body {
+	background-image: url('/images/bg.jpg');
+	color: white;
+	background-size: 100%;
+	background-repeat: no-repeat;
+	background-position: center center;
+	overflow-x: hidden;
+	padding: 0;
+	margin: 0;
+	font-family: 'Arimo', sans-serif;
+}
+h1 {
+	font-family: 'Arimo', sans-serif;
+	text-align: center;
+	margin-top: 20px;
+	font-size: 40px;
+	text-shadow: 5px 5px 5px gray;
+}
+.table-container {
+	font-size: 30px;
+	margin-top: 20px;
+	width: 80%;
+	margin: auto;
+}
+.table-row {
+	display: flex;
+}
+.table-column {
+	background-color: red;
+	margin: 2px;
+	padding: 15px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
