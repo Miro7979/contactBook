@@ -1,37 +1,131 @@
-@import url('https://fonts.googleapis.com/css?family=Arimo&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Arimo|Righteous&display=swap');
 
 body {
-	background-image: url('/images/bg.jpg');
 	color: white;
-	background-size: 100%;
-	background-repeat: no-repeat;
-	background-position: center center;
 	overflow-x: hidden;
 	padding: 0;
 	margin: 0;
 	font-family: 'Arimo', sans-serif;
 }
-h1 {
-	font-family: 'Arimo', sans-serif;
+html {
+	background: url(images/bg.jpg) no-repeat center center fixed;
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.pageHeader {
+	font-family: 'Righteous', cursive;
 	text-align: center;
-	margin-top: 20px;
-	font-size: 40px;
+	margin-top: 40px;
+	font-size: 60px;
 	text-shadow: 5px 5px 5px gray;
 }
 .table-container {
-	font-size: 30px;
-	margin-top: 20px;
+	font-size: 20px;
+	margin-top: 80px;
 	width: 80%;
 	margin: auto;
 }
 .table-row {
 	display: flex;
+	display: center;
 }
 .table-column {
-	background-color: red;
+	background-color: rgb(69, 89, 133);
 	margin: 2px;
 	padding: 15px;
 	white-space: nowrap;
 	overflow: hidden;
 	text-overflow: ellipsis;
+}
+.name {
+	flex-basis: 20%;
+}
+.phone {
+	flex-basis: 20%;
+}
+.email {
+	flex-basis: 20%;
+}
+.edit,
+.delete,
+.add-entry-column {
+	flex-basis: 4%;
+	text-align: center;
+	cursor: pointer;
+}
+
+/* Modal css begins */
+#newPersonModal {
+	width: 500px;
+	padding: 10px;
+	border-radius: 5px;
+	z-index: 99;
+	top: 50px;
+	position: absolute;
+	margin-left: calc(50% - 250px);
+	margin-top: calc(50% -250px);
+	background-color: rgb(130, 184, 228);
+}
+.modalHeader {
+	font-size: 30px;
+	font-family: 'Righteous', cursive;
+	text-align: center;
+}
+
+#newPersonModal input {
+	display: block;
+	display: center;
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 3px;
+	width: 80%;
+}
+
+.input-err {
+	background-color: red;
+}
+#backdropBackground {
+	width: 100%;
+	/* background-color: rgb(0,0,0.8); */
+}
+
+#newPersonCancelBtn {
+	background-color: rgb(233, 59, 59);
+}
+
+#newPersonSubmitbtn {
+	background-color: rgb(162, 241, 116);
+}
+
+button {
+	padding: 15px;
+	border-radius: 5px;
+	border: none;
+	float: right;
+	margin: 5px;
+	cursor: pointer;
+}
+
+button:hover {
+	padding: 13px;
+}
+
+/* .disable-modal {
+	visibility: hidden;
+} */
+.enable-modal {
+	visibility: visible;
+}
+
+i {
+	pointer-events: none;
+}
+
+#clearLocalStoragebtn {
+	position: absolute;
+	right: 10px;
+	bottom: 5px;
 }
