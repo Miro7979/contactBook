@@ -1,23 +1,59 @@
 // DOM element begin
 let body = document.querySelector('body');
 
+// Wrap Div
+let wrapperDiv = document.createElement('div');
+wrapperDiv.innerHTML = '';
+body.append(wrapperDiv);
+wrapperDiv.setAttribute('class', 'wrapperDiv');
+
 // Page headline
 let headerDiv = document.createElement('div');
 headerDiv.innerHTML = 'Min Kontakt Bok';
-body.append(headerDiv);
+wrapperDiv.append(headerDiv);
 headerDiv.setAttribute('class', 'pageHeader');
+
+// search row
+let searchRow = document.createElement('div');
+searchRow.innerHTML = '';
+headerDiv.append(searchRow);
+searchRow.setAttribute('class', 'searchRow');
+searchRow.setAttribute('id', 'searchRow');
+
+// search input
+let searchForm = document.createElement('form');
+searchForm.innerHTML = '';
+searchRow.append(searchForm);
+searchForm.setAttribute('id', 'searchContacts');
+
+let searchInput = document.createElement('input');
+searchInput.innerHTML = 'Sök';
+searchRow.append(searchInput);
+searchInput.setAttribute('class', 'searchInput');
+searchInput.setAttribute('type', 'text');
+searchInput.setAttribute('placeholder', 'Sök kontakter här..');
+
+// serach button
+let searchButton = document.createElement('button');
+searchButton.innerHTML = 'Sök';
+searchRow.append(searchButton);
+searchButton.setAttribute('class', 'searchButton');
 
 // div container
 let container = document.createElement('container');
 container.innerHTML = '';
-body.append(container);
-container.setAttribute('class', 'table-container mainContainer');
+wrapperDiv.append(container);
+container.setAttribute('class', 'table-container');
+container.setAttribute('id', 'tableContainer');
 
-// div row
+
+// name row
 let row = document.createElement('div');
 row.innerHTML = '';
 container.append(row);
 row.setAttribute('class', 'table-row');
+row.setAttribute('id', 'tableRow');
+
 
 // div column
 let nameColumn = document.createElement('div');
@@ -49,18 +85,18 @@ span.setAttribute('id', 'tableBody');
 // modal 
 let backdrop = document.createElement('div');
 backdrop.innerHTML = '';
-body.append(backdrop);
+wrapperDiv.append(backdrop);
 backdrop.setAttribute('class', 'disable-modal');
-backdrop.setAttribute('id', 'backdropBackground');
+backdrop.setAttribute('id', 'backdrop');
 
 let newPersonModal = document.createElement('div');
 newPersonModal.innerHTML = '';
-body.append(newPersonModal);
+wrapperDiv.append(newPersonModal);
 newPersonModal.setAttribute('class', 'disable-modal');
 newPersonModal.setAttribute('id', 'newPersonModal');
 
 let modalHeader = document.createElement('h1');
-modalHeader.innerHTML = 'Skapa ny kontakt: ';
+modalHeader.innerHTML = 'Skapa ny kontakt';
 newPersonModal.append(modalHeader);
 modalHeader.setAttribute('class', 'modalHeader');
 
@@ -107,7 +143,7 @@ newPersonModal.append(modalButtonCancel);
 modalButtonCancel.setAttribute('id', 'newPersonCancelBtn');
 
 let modalButtonSubmit = document.createElement('button');
-modalButtonSubmit.innerHTML = 'Ok';
+modalButtonSubmit.innerHTML = 'Lägg till';
 newPersonModal.append(modalButtonSubmit);
 modalButtonSubmit.setAttribute('id', 'newPersonSubmitBtn');
 
@@ -115,4 +151,4 @@ modalButtonSubmit.setAttribute('id', 'newPersonSubmitBtn');
 let clearLocalStoragebtn = document.createElement('button');
 clearLocalStoragebtn.innerHTML = 'Rensa LocalStorage';
 body.append(clearLocalStoragebtn);
-clearLocalStoragebtn.setAttribute('id', 'clearLocalStoragebtn');
+clearLocalStoragebtn.setAttribute('id', 'clearLocalStorageBtn');

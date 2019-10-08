@@ -15,6 +15,12 @@ html {
 	background-size: cover;
 }
 
+.wrapperDiv {
+	display: center;
+	margin-top: 80px;
+	width: 80%;
+	margin: auto;
+}
 .pageHeader {
 	font-family: 'Righteous', cursive;
 	text-align: center;
@@ -22,12 +28,33 @@ html {
 	font-size: 60px;
 	text-shadow: 5px 5px 5px gray;
 }
+.searchRow {
+	display: flex;
+	flex-basis: 100%;
+}
+
+.searchInput {
+	flex-basis: 25%;
+	margin: 5px 0 5px 0;
+	display: center;
+	border-radius: 5px;
+}
+.searchButton {
+	flex-basis: 10%;
+	padding: 10px;
+	border-radius: 5px;
+	border: none;
+	float: right;
+	cursor: pointer;
+}
+
 .table-container {
-	font-size: 20px;
-	margin-top: 80px;
-	width: 80%;
+	font-size: 30px;
+	margin-top: 100px;
+	width: 100%;
 	margin: auto;
 }
+
 .table-row {
 	display: flex;
 	display: center;
@@ -42,17 +69,20 @@ html {
 }
 .name {
 	flex-basis: 20%;
+	font-size: 20px;
 }
 .phone {
 	flex-basis: 20%;
+	font-size: 20px;
 }
 .email {
 	flex-basis: 20%;
+	font-size: 20px;
 }
 .edit,
 .delete,
 .add-entry-column {
-	flex-basis: 4%;
+	flex-basis: 5%;
 	text-align: center;
 	cursor: pointer;
 }
@@ -65,8 +95,8 @@ html {
 	z-index: 99;
 	top: 50px;
 	position: absolute;
+	display: center center;
 	margin-left: calc(50% - 250px);
-	margin-top: calc(50% -250px);
 	background-color: rgb(130, 184, 228);
 }
 .modalHeader {
@@ -80,23 +110,27 @@ html {
 	display: center;
 	margin-bottom: 15px;
 	padding: 10px;
-	border: 3px;
-	width: 80%;
+	border: 1px;
+	width: 100%;
 }
 
-.input-err {
-	background-color: red;
+#input-err {
+	background-color: rgb(250, 232, 68);
 }
-#backdropBackground {
+#backdrop {
 	width: 100%;
-	/* background-color: rgb(0,0,0.8); */
+	height: 100%;
+	background-color: rgb(0, 0, 0.8);
+	z-index: 50;
+	top: 0;
+	left: 0;
 }
 
 #newPersonCancelBtn {
 	background-color: rgb(233, 59, 59);
 }
 
-#newPersonSubmitbtn {
+#newPersonSubmitBtn {
 	background-color: rgb(162, 241, 116);
 }
 
@@ -109,13 +143,13 @@ button {
 	cursor: pointer;
 }
 
-button:hover {
-	padding: 13px;
-}
-
-/* .disable-modal {
-	visibility: hidden;
+/* button:hover {
+	border: blue;
 } */
+
+.disable-modal {
+	visibility: hidden;
+}
 .enable-modal {
 	visibility: visible;
 }
@@ -124,7 +158,7 @@ i {
 	pointer-events: none;
 }
 
-#clearLocalStoragebtn {
+#clearLocalStorageBtn {
 	position: absolute;
 	right: 10px;
 	bottom: 5px;
