@@ -33,7 +33,7 @@ html {
 	flex-basis: 100%;
 }
 
-.searchInput {
+#search {
 	flex-basis: 25%;
 	margin: 5px 0 5px 0;
 	display: center;
@@ -81,10 +81,18 @@ html {
 }
 .edit,
 .delete,
+.contactHistory,
 .add-entry-column {
 	flex-basis: 5%;
 	text-align: center;
 	cursor: pointer;
+}
+.add-entry-column {
+	background-color: rgb(130, 212, 104);
+}
+
+.delete {
+	background-color: rgb(233, 96, 61);
 }
 
 /* Modal css begins */
@@ -111,7 +119,7 @@ html {
 	margin-bottom: 15px;
 	padding: 10px;
 	border: 1px;
-	width: 100%;
+	width: 80%;
 }
 
 #input-err {
@@ -156,6 +164,19 @@ button {
 
 i {
 	pointer-events: none;
+}
+
+.table-columnName,
+.table-columnPhone,
+.table-columnEmail {
+	background-color: rgb(91, 96, 105);
+	margin: 2px;
+	padding: 15px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	flex-basis: 20%;
+	font-size: 20px;
 }
 
 #clearLocalStorageBtn {

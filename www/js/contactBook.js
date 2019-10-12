@@ -1,18 +1,6 @@
 const tableKey = 'table';
 
-let clearBtn = window.addEventListener('click', e => {
-    if (e.target.closest('#clearLocalStorageBtn')) {
-        console.log('du klickade localStorage knappen');
-    }
-})
-
-let contactTable;
-let contactTableDemo = {
-    'Miro Neo': {
-        'telefonnummer': '0761098591',
-        'email': 'miro@minakontakter.nu'
-    }
-};
+let contactTable = {};
 
 let enableDisableNameInput = (option) => {
     let newPersonName = document.querySelector('#newPersonName');
@@ -22,7 +10,7 @@ let enableDisableNameInput = (option) => {
 
     else if (option === 'disable')
         newPersonName.disabled = true;
-}
+};
 
 // only push to inside reDrawDOMTable because that function 
 // also kills the old listeners each time it runs
@@ -33,7 +21,6 @@ const [listen, unlisten] = (() => {
     let listeners = [];
 
     function listen(eventType, cssSelector, func) {
-        console.log('eventType', eventType, 'selector', cssSelector)
         // Register a "listener"
         let listener = { eventType, cssSelector, func };
         listeners.push(listener);
@@ -64,8 +51,6 @@ const [listen, unlisten] = (() => {
 
 let reDrawDOMTable = () => {
 
-
-
     let contactTableKeys = Object.keys(contactTable);
     let tableContainer = document.querySelector('#tableContainer');
     let oldTableBody = document.querySelector('#tableBody');
@@ -75,8 +60,6 @@ let reDrawDOMTable = () => {
     newTableBody.setAttribute('id', 'tableBody');
     tableContainer.append(newTableBody);
 
-
-
     for (let i = 0; i < contactTableKeys.length; i++) {
         let currentRow = document.createElement('div');
         let currentNameCol = document.createElement('div');
@@ -84,6 +67,7 @@ let reDrawDOMTable = () => {
         let currentEmailCol = document.createElement('div');
         let currentEditBtn = document.createElement('div');
         let currentDeleteBtn = document.createElement('div');
+        let currentContactHistory = document.createElement('div');
 
         currentRow.className = 'table-row';
         currentNameCol.className = 'table-column name';
@@ -93,19 +77,24 @@ let reDrawDOMTable = () => {
         currentEditBtn.className = 'table-column edit i';
         // Create delete button
         currentDeleteBtn.className = 'table-column delete i';
+        // create history button
+        currentContactHistory.className = 'table-column contactHistory i';
 
         currentNameCol.innerHTML = contactTableKeys[i];
         currentPhoneCol.innerHTML = contactTable[contactTableKeys[i]].phone;
         currentEmailCol.innerHTML = contactTable[contactTableKeys[i]].email;
         currentDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
         currentEditBtn.innerHTML = '<i class="fas fa-edit"></i>';
+        currentContactHistory.innerHTML = '<i class="fas fa-history"></i>';
 
         currentRow.append(currentNameCol);
         currentRow.append(currentPhoneCol);
         currentRow.append(currentEmailCol);
         currentRow.append(currentDeleteBtn);
         currentRow.append(currentEditBtn);
+        currentRow.append(currentContactHistory);
         newTableBody.append(currentRow);
+        // console.log(CustomElementRegistry);
 
     }
 
@@ -122,17 +111,30 @@ let reDrawDOMTable = () => {
 
         newPersonModal.className = `${option}-modal`;
         backdrop.className = `${option}-modal`;
+    };
+
+    let enableAndDisablePersonHistoryModal = (option) => {
+        let newPersonName = document.querySelector('#newPersonName');
+        let newPersonPhone = document.querySelector('#newPersonPhone');
+        let newPersonEmail = document.querySelector('#newPersonEmail');
+        newPersonName.value = '';
+        newPersonPhone.value = '';
+        newPersonEmail.value = '';
+
+        let personHistoryModal = document.querySelector('#personHistoryModal');
+        let backdrop = document.querySelector('#backdrop');
+        personHistoryModal.className = `${option}-modal`;
+        backdrop.className = `${option}-modal`;
     }
 
-    // // let addNewEntryBtn = document.querySelector('#addNewEntry');
-    // let editBtns = document.querySelector('.edit');
-    // let deleteBtns = document.querySelector('.delete');
+    // kill all old listeners
+    while (listeners.length) {
+        unlisten(listeners.pop());
+    }
 
-    // console.log(addEntry.getAttribute('#addNewEntry'));
+    // Listen to person submit button
+    listeners.push(listen('click', '#newPersonSubmitBtn', e => {
 
-    let newPersonSubmitBtn = document.querySelector('#newPersonSubmitBtn');
-
-    newPersonSubmitBtn.addEventListener('click', () => {
         let newPersonName = document.querySelector('#newPersonName').value.trim();
         let newPersonPhone = document.querySelector('#newPersonPhone').value.trim();
         let newPersonEmail = document.querySelector('#newPersonEmail').value.trim();
@@ -153,85 +155,85 @@ let reDrawDOMTable = () => {
             document.querySelector('#newPersonEmail').className = 'input-err';
 
         if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
+
             let newPerson = {};
             contactTable[newPersonName] = {
                 'phone': newPersonPhone,
                 'email': newPersonEmail
             }
+            // function newPerson(tableKey) {
+
+            //     let newPerson = Object.create(newPerson);
+
+            //     newPerson.tableKey = tableKey;
+
+            //     return newPerson;
+
+            // }
+
             localStorage.setItem(tableKey, JSON.stringify(contactTable));
             enableAndDisableNewUserModal('disable');
             reDrawDOMTable();
         }
-    });
+    }));
 
-    addNewEntryBtn = window.addEventListener('click', e => {
+    // Listen to add new person button
+    listeners.push(listen('click', '#addNewEntry', e => {
+
         if (e.target.closest('#addNewEntry')) {
             enableAndDisableNewUserModal('enable');
         }
-    });
-    let newPersonCancelBtn = document.querySelector('#newPersonCancelBtn');
-    newPersonCancelBtn.addEventListener('click', e => {
+    }));
+
+    // Listen to cancel new person button
+    listeners.push(listen('click', '#newPersonCancelBtn', e => {
 
         enableAndDisableNewUserModal('disable');
-    }
-    );
-
-    // kill all old listeners
-    while (listeners.length) {
-        unlisten(listeners.pop());
-    }
+    }));
 
     // We can listen
     listeners.push(listen('click', '.edit', e => {
-        // console.log('You clicked an .edit');
-
-        let nameToEdit = e.target.parentElement.children[0].innerText;
-        let personToEdit = contactTable[nameToEdit];
+        let contactToEdit = e.target.parentElement.children[0].innerText;
+        let personToEdit = contactTable[contactToEdit];
         enableAndDisableNewUserModal('enable');
 
-        let newPersonName = document.querySelector('#newPersonName');
+        // let newPersonName = document.querySelector('#newPersonName');
         let newPersonPhone = document.querySelector('#newPersonPhone');
         let newPersonEmail = document.querySelector('#newPersonEmail');
-        newPersonName.value = nameToEdit;
+        newPersonName.value = contactToEdit;
         newPersonPhone.value = personToEdit.phone;
         newPersonEmail.value = personToEdit.email;
 
         enableDisableNameInput('disable');
-
     }));
 
+    // Listen to delete button
     listeners.push(listen('click', '.delete', e => {
-        let nameToDelete = e.target.parentElement.children[0].innerText;
-        let areYouSure = window.confirm('Är du säker att du vill ta bort ' + nameToDelete + '?');
+        let contactToDelete = e.target.parentElement.children[0].innerText;
+        let areYouSure = window.confirm('Är du säker att du vill ta bort ' + contactToDelete + '?');
 
         if (areYouSure)
-            deleteUserFromTable(nameToDelete);
+            deleteUserFromTable(contactToDelete);
     }));
 
-}
+    // Listen to person history button
+    listeners.push(listen('click', '.contactHistory', e => {
+        let contactToSe = e.target.parentElement.children[0].innerText;
+        let personToSe = contactTable[contactToSe];
+        enableAndDisablePersonHistoryModal('enable')
+        let newPersonName = document.querySelector('#newPersonName');
+        let newPersonPhone = document.querySelector('#newPersonPhone');
+        let newPersonEmail = document.querySelector('#newPersonEmail');
+        newPersonName.value = contactToSe;
+        newPersonPhone.value = personToSe.phone;
+        newPersonEmail.value = personToSe.email;
 
-let deleteUserFromTable = (userName) => {
-    let tempTable = {};
-    let contactTableKeys = Object.keys(contactTable);
-    for (let i = 0; i < contactTableKeys.length; i++) {
-        if (userName !== contactTableKeys[i]) {
-            tempTable[contactTableKeys[i]] = contactTable[contactTableKeys[i]];
-        }
-    }
+        enableDisableNameInput('disable');
 
-    contactTable = tempTable;
-    localStorage.setItem(tableKey, JSON.stringify(contactTable));
-    reDrawDOMTable();
-}
+    }));
+};
 
-let init = () => {
-    if (localStorage.getItem(tableKey)) {
-        contactTable = JSON.parse(localStorage.getItem(tableKey));
-    }
-    else {
-        contactTable = contactTableDemo;
-        localStorage.setItem(tableKey, JSON.stringify(contactTable));
-    }
-    reDrawDOMTable();
-}
-init();
+
+
+
+

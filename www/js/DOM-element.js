@@ -29,9 +29,10 @@ searchForm.setAttribute('id', 'searchContacts');
 let searchInput = document.createElement('input');
 searchInput.innerHTML = 'Sök';
 searchRow.append(searchInput);
-searchInput.setAttribute('class', 'searchInput');
+searchInput.setAttribute('class', 'form-control');
 searchInput.setAttribute('type', 'text');
-searchInput.setAttribute('placeholder', 'Sök kontakter här..');
+searchInput.setAttribute('placeholder', '   Sök kontakter här..');
+searchInput.setAttribute('id', 'search');
 
 // serach button
 let searchButton = document.createElement('button');
@@ -59,17 +60,20 @@ row.setAttribute('id', 'tableRow');
 let nameColumn = document.createElement('div');
 nameColumn.innerHTML = 'Namn';
 row.append(nameColumn);
-nameColumn.setAttribute('class', 'table-column name');
+nameColumn.setAttribute('class', 'table-columnName');
+nameColumn.setAttribute('id', 'list');
 
 let phoneColumn = document.createElement('div');
 phoneColumn.innerHTML = 'Telefonnummer';
 row.append(phoneColumn);
-phoneColumn.setAttribute('class', 'table-column phone');
+phoneColumn.setAttribute('class', 'table-columnPhone');
+phoneColumn.setAttribute('id', 'list');
 
 let emailColumn = document.createElement('div');
 emailColumn.innerHTML = 'Email';
 row.append(emailColumn);
-emailColumn.setAttribute('class', 'table-column email');
+emailColumn.setAttribute('class', 'table-columnEmail');
+emailColumn.setAttribute('id', 'list');
 
 let addEntry = document.createElement('div');
 addEntry.innerHTML = '+';
@@ -86,7 +90,7 @@ span.setAttribute('id', 'tableBody');
 let backdrop = document.createElement('div');
 backdrop.innerHTML = '';
 wrapperDiv.append(backdrop);
-backdrop.setAttribute('class', 'disable-modal');
+backdrop.setAttribute('class', 'enable-modal');
 backdrop.setAttribute('id', 'backdrop');
 
 let newPersonModal = document.createElement('div');
@@ -147,8 +151,50 @@ modalButtonSubmit.innerHTML = 'Lägg till';
 newPersonModal.append(modalButtonSubmit);
 modalButtonSubmit.setAttribute('id', 'newPersonSubmitBtn');
 
-// tempo button for clear localStorage
-let clearLocalStoragebtn = document.createElement('button');
-clearLocalStoragebtn.innerHTML = 'Rensa LocalStorage';
-body.append(clearLocalStoragebtn);
-clearLocalStoragebtn.setAttribute('id', 'clearLocalStorageBtn');
+// person history modal
+let personHistoryModal = document.createElement('div');
+personHistoryModal.innerHTML = '';
+wrapperDiv.append(personHistoryModal);
+personHistoryModal.setAttribute('class', 'disable-modal');
+personHistoryModal.setAttribute('id', 'personHistoryModal');
+
+let historyModalHeader = document.createElement('h1');
+historyModalHeader.innerHTML = 'Kontakt historik';
+personHistoryModal.append(historyModalHeader);
+historyModalHeader.setAttribute('class', 'historyModalHeader');
+
+// new container
+// let newContainer = document.createElement('container');
+// newContainer.innerHTML = '';
+// body.append(newContainer);
+// newContainer.setAttribute('class', 'table-newContainer');
+// newContainer.setAttribute('id', 'tableNewContainer');
+// // new table
+// let tableNew = document.createElement('table');
+// tableNew.innerHTML = '';
+// newContainer.append(tableNew);
+// tableNew.setAttribute('class', 'tableNew');
+// // thead
+// let tableThead = document.createElement('thead');
+// tableThead.innerHTML = '';
+// tableNew.append(tableThead);
+// tableThead.setAttribute('class', 'tableThead' + '');
+
+// // tr
+// let tableTr = document.createElement('tr');
+// tableNew.innerHTML = '';
+// thead.append(tableTr);
+
+// // th
+// let tableThName = document.createElement('th');
+// tableThName.innerHTML = 'Namn';
+// tableTr.append(tableThName);
+
+// let tableThPhone = document.createElement('th');
+// tableThPhone.innerHTML = 'Telefonnummer';
+// tableTr.append(tableThPhone);
+
+// let tableThEmail = document.createElement('th');
+// tableThEmail.innerHTML = 'Email';
+// tableTr.append(tableThEmail);
+
