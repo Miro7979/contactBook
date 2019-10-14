@@ -1,6 +1,4 @@
-const tableKey = 'table';
-
-let contactTable = {};
+let contacts = [];
 
 let enableDisableNameInput = (option) => {
     let newPersonName = document.querySelector('#newPersonName');
@@ -51,7 +49,7 @@ const [listen, unlisten] = (() => {
 
 let reDrawDOMTable = () => {
 
-    let contactTableKeys = Object.keys(contactTable);
+    let contactTableKeys = Object.keys(contacts);
     let tableContainer = document.querySelector('#tableContainer');
     let oldTableBody = document.querySelector('#tableBody');
     oldTableBody.setAttribute('id', 'tableBody');
@@ -60,7 +58,7 @@ let reDrawDOMTable = () => {
     newTableBody.setAttribute('id', 'tableBody');
     tableContainer.append(newTableBody);
 
-    for (let i = 0; i < contactTableKeys.length; i++) {
+    for (let i = 0; i < contacts.length; i++) {
         let currentRow = document.createElement('div');
         let currentNameCol = document.createElement('div');
         let currentPhoneCol = document.createElement('div');
@@ -70,6 +68,7 @@ let reDrawDOMTable = () => {
         let currentContactHistory = document.createElement('div');
 
         currentRow.className = 'table-row';
+        currentRow.setAttribute('data-index', i);
         currentNameCol.className = 'table-column name';
         currentPhoneCol.className = 'table-column phone';
         currentEmailCol.className = 'table-column email';
@@ -80,9 +79,9 @@ let reDrawDOMTable = () => {
         // create history button
         currentContactHistory.className = 'table-column contactHistory i';
 
-        currentNameCol.innerHTML = contactTableKeys[i];
-        currentPhoneCol.innerHTML = contactTable[contactTableKeys[i]].phone;
-        currentEmailCol.innerHTML = contactTable[contactTableKeys[i]].email;
+        currentNameCol.innerHTML = contacts[i].name;
+        currentPhoneCol.innerHTML = contacts[i].phone;
+        currentEmailCol.innerHTML = contacts[i].email;
         currentDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
         currentEditBtn.innerHTML = '<i class="fas fa-edit"></i>';
         currentContactHistory.innerHTML = '<i class="fas fa-history"></i>';
@@ -156,33 +155,32 @@ let reDrawDOMTable = () => {
 
         if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
 
-            let newPerson = {};
-            contactTable[newPersonName] = {
+            let newPerson = {
+                'name': newPersonName,
                 'phone': newPersonPhone,
                 'email': newPersonEmail
             }
-            // function newPerson(tableKey) {
 
-            //     let newPerson = Object.create(newPerson);
+            contacts = [
+                ...contacts,
+                newPerson
+            ];
 
-            //     newPerson.tableKey = tableKey;
 
-            //     return newPerson;
-
-            // }
-
-            localStorage.setItem(tableKey, JSON.stringify(contactTable));
+            localStorage.setItem("contacts", JSON.stringify(contacts));
             enableAndDisableNewUserModal('disable');
             reDrawDOMTable();
+        } else {
+            // show error
         }
     }));
 
     // Listen to add new person button
     listeners.push(listen('click', '#addNewEntry', e => {
-
+        enableDisableNameInput('enable');
         if (e.target.closest('#addNewEntry')) {
             enableAndDisableNewUserModal('enable');
-        }
+        };
     }));
 
     // Listen to cancel new person button
@@ -193,14 +191,14 @@ let reDrawDOMTable = () => {
 
     // We can listen
     listeners.push(listen('click', '.edit', e => {
-        let contactToEdit = e.target.parentElement.children[0].innerText;
-        let personToEdit = contactTable[contactToEdit];
+        let contactToEdit = e.target.closest('.table-row').getAttribute('data-index'); //.parentElement.children[0].innerText;
+        let personToEdit = contacts[contactToEdit];
         enableAndDisableNewUserModal('enable');
 
         // let newPersonName = document.querySelector('#newPersonName');
         let newPersonPhone = document.querySelector('#newPersonPhone');
         let newPersonEmail = document.querySelector('#newPersonEmail');
-        newPersonName.value = contactToEdit;
+        newPersonName.value = personToEdit.name;
         newPersonPhone.value = personToEdit.phone;
         newPersonEmail.value = personToEdit.email;
 
@@ -219,7 +217,7 @@ let reDrawDOMTable = () => {
     // Listen to person history button
     listeners.push(listen('click', '.contactHistory', e => {
         let contactToSe = e.target.parentElement.children[0].innerText;
-        let personToSe = contactTable[contactToSe];
+        let personToSe = contacts[contactToSe];
         enableAndDisablePersonHistoryModal('enable')
         let newPersonName = document.querySelector('#newPersonName');
         let newPersonPhone = document.querySelector('#newPersonPhone');
@@ -233,7 +231,7 @@ let reDrawDOMTable = () => {
     }));
 };
 
-
+console.log(contacts);
 
 
 

@@ -1,34 +1,21 @@
-let getContacts = () => {
-    let contacts;
-    if (localStorage.getItem('contacts') === null) {
-        contacts = [];
-    } else {
-        contacts = JSON.parse(localStorage.getItem('contacts'));
-    }
-    return contacts;
-};
 
-let deleteUserFromTable = (contact) => {
+let deleteUserFromTable = (userName) => {
     let tempTable = {};
-    let contactTableKeys = Object.keys(contactTable);
+    let contact = Object.keys(contacts);
     for (let i = 0; i < contactTableKeys.length; i++) {
-        if (contact !== contactTableKeys[i]) {
-            tempTable[contactTableKeys[i]] = contactTable[contactTableKeys[i]];
+        if (userName !== contactTableKeys[i]) {
+            tempTable[contactTableKeys[i]] = contacts[contactTableKeys[i]];
         }
     }
 
-    contactTable = tempTable;
-    localStorage.setItem(tableKey, JSON.stringify(contactTable));
+    contacts = tempTable;
+    localStorage.setItem("contacts", JSON.stringify(contacts));
     reDrawDOMTable();
 }
 
 let init = () => {
-    if (localStorage.getItem(tableKey)) {
-        contactTable = JSON.parse(localStorage.getItem(tableKey));
-    }
-    else {
-        contactTable = contactTable;
-        localStorage.setItem(tableKey, JSON.stringify(contactTable));
+    if (localStorage.getItem("contacts")) {
+        contacts = JSON.parse(localStorage.getItem("contacts"));
     }
     reDrawDOMTable();
 }
