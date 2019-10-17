@@ -13,33 +13,6 @@ headerDiv.innerHTML = 'Min Kontakt Bok';
 wrapperDiv.append(headerDiv);
 headerDiv.setAttribute('class', 'pageHeader');
 
-// search row
-let searchRow = document.createElement('div');
-searchRow.innerHTML = '';
-headerDiv.append(searchRow);
-searchRow.setAttribute('class', 'searchRow');
-searchRow.setAttribute('id', 'searchRow');
-
-// search input
-let searchForm = document.createElement('form');
-searchForm.innerHTML = '';
-searchRow.append(searchForm);
-searchForm.setAttribute('id', 'searchContacts');
-
-let searchInput = document.createElement('input');
-searchInput.innerHTML = 'Sök';
-searchRow.append(searchInput);
-searchInput.setAttribute('class', 'form-control');
-searchInput.setAttribute('type', 'text');
-searchInput.setAttribute('placeholder', '   Sök kontakter här..');
-searchInput.setAttribute('id', 'search');
-
-// serach button
-let searchButton = document.createElement('button');
-searchButton.innerHTML = 'Sök';
-searchRow.append(searchButton);
-searchButton.setAttribute('class', 'searchButton');
-
 // div container
 let container = document.createElement('container');
 container.innerHTML = '';
@@ -99,10 +72,23 @@ wrapperDiv.append(newPersonModal);
 newPersonModal.setAttribute('class', 'disable-modal');
 newPersonModal.setAttribute('id', 'newPersonModal');
 
-let modalHeader = document.createElement('h1');
-modalHeader.innerHTML = 'Skapa ny kontakt';
-newPersonModal.append(modalHeader);
-modalHeader.setAttribute('class', 'modalHeader');
+// let modalHeader = document.createElement('h1');
+// modalHeader.innerHTML = 'Skapa ny kontakt';
+// newPersonModal.append(modalHeader);
+// modalHeader.setAttribute('class', 'modalHeader');
+
+// edit modal
+// let editPersonModal = document.createElement('div');
+// newPersonModal.innerHTML = '';
+// wrapperDiv.append(editPersonModal);
+// editPersonModal.setAttribute('class', 'disable-modal');
+// editPersonModal.setAttribute('id', 'editPersonModal');
+
+// edit modal header
+// let editModalHeader = document.createElement('h1');
+// editModalHeader.innerHTML = 'Ändra kontakt';
+// editPersonModal.append(editModalHeader);
+// editModalHeader.setAttribute('class', 'editModalHeader');
 
 // label 1
 let newPersonNameLabel = document.createElement('label');
@@ -147,9 +133,15 @@ newPersonModal.append(modalButtonCancel);
 modalButtonCancel.setAttribute('id', 'newPersonCancelBtn');
 
 let modalButtonSubmit = document.createElement('button');
-modalButtonSubmit.innerHTML = 'Lägg till';
+modalButtonSubmit.innerHTML = 'Spara';
 newPersonModal.append(modalButtonSubmit);
 modalButtonSubmit.setAttribute('id', 'newPersonSubmitBtn');
+
+// // submit edit button
+// let editSubmitButton = document.createElement('button');
+// editSubmitButton.innerHTML = 'Ändra';
+// newPersonModal.append(editSubmitButton);
+// editSubmitButton.setAttribute('id', 'editSubmitBtn');
 
 // person history modal
 let personHistoryModal = document.createElement('div');

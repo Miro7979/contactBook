@@ -1,22 +1,16 @@
 
-let deleteUserFromTable = (userName) => {
-    let tempTable = {};
-    let contact = Object.keys(contacts);
-    for (let i = 0; i < contactTableKeys.length; i++) {
-        if (userName !== contactTableKeys[i]) {
-            tempTable[contactTableKeys[i]] = contacts[contactTableKeys[i]];
-        }
+class Store extends ContactBook {
+    constructor() {
+        super();
+        this.contacts = contacts;
+        this.init = () => {
+            if (localStorage.getItem("contacts")) {
+                contacts = JSON.parse(localStorage.getItem("contacts"));
+            };
+            this.reDrawDOMTable(contacts);
+        };
+        this.init()
     }
-
-    contacts = tempTable;
-    localStorage.setItem("contacts", JSON.stringify(contacts));
-    reDrawDOMTable();
 }
 
-let init = () => {
-    if (localStorage.getItem("contacts")) {
-        contacts = JSON.parse(localStorage.getItem("contacts"));
-    }
-    reDrawDOMTable();
-}
-init()
+new Store();
