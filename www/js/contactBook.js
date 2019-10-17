@@ -8,6 +8,7 @@ class ContactBook {
     // also kills the old listeners each time it runs
     reDrawDOMTable = () => {
 
+
         let tableContainer = document.querySelector('#tableContainer');
         let oldTableBody = document.querySelector('#tableBody');
         oldTableBody.setAttribute('id', 'tableBody');
@@ -15,6 +16,7 @@ class ContactBook {
         let newTableBody = document.createElement('span');
         newTableBody.setAttribute('id', 'tableBody');
         tableContainer.append(newTableBody);
+
 
 
         for (let i = 0; i < contacts.length; i++) {
