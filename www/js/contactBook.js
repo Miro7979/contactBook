@@ -1,14 +1,42 @@
 let contacts = [];
 class ContactBook {
-    constructor(contacts) {
+    constructor(contacts, listeners) {
         this.contacts = contacts;
         this.listeners = listeners;
+        this.reDrawDOMTable();
+
     }
+
+    addEditContact = () => {
+
+        let editContact = [{
+            'id': Date.now(),
+            'name': document.querySelector('#input-name').value,
+            'phone': document.querySelector('#input-phone').value,
+            'email': document.querySelector('#input-email').value
+        }];
+
+        console.log(contacts);
+        localStorage.setItem("editContactList", JSON.stringify(editContact));
+        this.reDrawDOMTable();
+
+    };
+    enableAndDisablePersonHistory = (option) => {
+        let newPersonName = document.querySelector('#newPersonName');
+        let newPersonPhone = document.querySelector('#newPersonPhone');
+        let newPersonEmail = document.querySelector('#newPersonEmail');
+        newPersonName.value = '';
+        newPersonPhone.value = '';
+        newPersonEmail.value = '';
+
+        let personHistory = document.querySelector('#personHistory');
+        personHistory.className = `${option}-history`;
+
+
+    };
     // only push to inside reDrawDOMTable because that function 
     // also kills the old listeners each time it runs
     reDrawDOMTable = () => {
-
-
         let tableContainer = document.querySelector('#tableContainer');
         let oldTableBody = document.querySelector('#tableBody');
         oldTableBody.setAttribute('id', 'tableBody');
@@ -16,8 +44,6 @@ class ContactBook {
         let newTableBody = document.createElement('span');
         newTableBody.setAttribute('id', 'tableBody');
         tableContainer.append(newTableBody);
-
-
 
         for (let i = 0; i < contacts.length; i++) {
             let currentRow = document.createElement('div');
@@ -35,7 +61,6 @@ class ContactBook {
             currentEmailCol.className = 'table-column email';
             // Create edit button
             currentEditBtn.className = 'table-column edit i';
-            currentEditBtn.setAttribute('editPerson', i)
             // Create delete button
             currentDeleteBtn.className = 'table-column delete i';
             // create history button
@@ -74,67 +99,10 @@ class ContactBook {
             backdrop.className = `${option}-modal`;
         };
 
-        let enableAndDisablePersonHistoryModal = (option) => {
-            let newPersonName = document.querySelector('#newPersonName');
-            let newPersonPhone = document.querySelector('#newPersonPhone');
-            let newPersonEmail = document.querySelector('#newPersonEmail');
-            newPersonName.value = '';
-            newPersonPhone.value = '';
-            newPersonEmail.value = '';
-
-            let personHistoryModal = document.querySelector('#personHistoryModal');
-            let backdrop = document.querySelector('#backdrop');
-            personHistoryModal.className = `${option}-modal`;
-            backdrop.className = `${option}-modal`;
-        }
-
         // kill all old listeners
         while (listeners.length) {
             unlisten(listeners.pop());
         }
-
-        // Listen to person submit button
-        listeners.push(listen('click', '#newPersonSubmitBtn', e => {
-
-            let newPersonName = document.querySelector('#newPersonName').value.trim();
-            let newPersonPhone = document.querySelector('#newPersonPhone').value.trim();
-            let newPersonEmail = document.querySelector('#newPersonEmail').value.trim();
-
-            if (newPersonName === '')
-                document.querySelector('#newPersonName').className = 'input-err';
-            else
-                document.querySelector('#newPersonName').className = '';
-
-            if (newPersonPhone === '')
-                document.querySelector('#newPersonPhone').className = 'input-err';
-            else
-                document.querySelector('#newPersonPhone').className = '';
-
-            if (newPersonEmail === '')
-                document.querySelector('#newPersonEmail').className = 'input-err';
-            else
-                document.querySelector('#newPersonEmail').className = '';
-
-            if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
-
-                let newPerson = {
-                    'name': newPersonName,
-                    'phone': newPersonPhone,
-                    'email': newPersonEmail,
-                    'versions': []
-                };
-
-                contacts = [
-                    ...contacts,
-                    newPerson
-                ];
-
-
-                localStorage.setItem("contacts", JSON.stringify(contacts));
-                enableAndDisableNewUserModal('disable');
-                this.reDrawDOMTable();
-            }
-        }));
 
         // Listen to add new person button
         listeners.push(listen('click', '#addNewEntry', (e, input) => {
@@ -145,10 +113,54 @@ class ContactBook {
             };
         }));
 
+        let createNewPerson = () => {
+            let newPersonName = document.querySelector('#newPersonName').value.trim();
+            let newPersonPhone = document.querySelector('#newPersonPhone').value.trim();
+            let newPersonEmail = document.querySelector('#newPersonEmail').value.trim();
+
+            if (newPersonName === '')
+                document.querySelector('#newPersonName').className = 'input-err';
+            else
+                document.querySelector('#newPersonName').className = '';
+            if (newPersonPhone === '')
+                document.querySelector('#newPersonPhone').className = 'input-err';
+            else
+                document.querySelector('#newPersonPhone').className = '';
+            if (newPersonEmail === '')
+                document.querySelector('#newPersonEmail').className = 'input-err';
+            else
+                document.querySelector('#newPersonEmail').className = '';
+            if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
+                let newPerson = {
+                    'id': Date.now(),
+                    'name': newPersonName,
+                    'phone': newPersonPhone,
+                    'email': newPersonEmail,
+                };
+                contacts = [
+                    ...contacts,
+                    newPerson
+                ];
+
+                localStorage.setItem("contacts", JSON.stringify(contacts));
+                enableAndDisableNewUserModal('disable');
+                this.reDrawDOMTable();
+            };
+        };
+
+        // Listen to person submit button
+        listeners.push(listen('click', '#modalSubmitBtn', e => {
+            if (e.target.closest('#modalSubmitBtn')) {
+                createNewPerson();
+            };
+        }));
+
+
         // Listen to cancel new person button
         listeners.push(listen('click', '#newPersonCancelBtn', e => {
-
-            enableAndDisableNewUserModal('disable');
+            if (e.target.closest('#newPersonCancelBtn')) {
+                enableAndDisableNewUserModal('disable');
+            }
         }));
 
         // Listen to edit button
@@ -157,17 +169,38 @@ class ContactBook {
             for (input of inputs) { input.className = ''; }
             let contactToEdit = e.target.closest('.table-row').getAttribute('data-index');
             let personToEdit = contacts[contactToEdit];
-            enableAndDisableNewUserModal('enable');
-
-            let newPersonName = document.querySelector('#newPersonName');
-            let newPersonPhone = document.querySelector('#newPersonPhone');
-            let newPersonEmail = document.querySelector('#newPersonEmail');
+            this.enableAndDisablePersonHistory('enable');
+            let newPersonName = document.querySelector('#input-name');
+            let newPersonPhone = document.querySelector('#input-phone');
+            let newPersonEmail = document.querySelector('#input-email');
             newPersonName.value = personToEdit.name;
             newPersonPhone.value = personToEdit.phone;
             newPersonEmail.value = personToEdit.email;
         }));
 
+        // Listen to edit person submit button
+        listeners.push(listen('click', '#editFormSubmitBtn', e => {
+            if (e.target.closest('#editFormSubmitBtn')) {
+                e.preventDefault();
 
+                this.addEditContact();
+                localStorage.setItem("contacts", JSON.stringify(contacts));
+
+
+                this.enableAndDisablePersonHistory('disable');
+                this.reDrawDOMTable();
+            }
+        }));
+
+        // Listen to cancel edit person button
+        listeners.push(listen('click', '#editFormCancelBtn', e => {
+            if (e.target.closest('#editFormCancelBtn')) {
+                e.preventDefault();
+                this.enableAndDisablePersonHistory('disable');
+            }
+        }));
+
+        // Delete contact
         let deleteUserFromTable = (i) => {
             contacts = contacts.filter((contact, index) => index != i);
             localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -183,20 +216,29 @@ class ContactBook {
                 deleteUserFromTable(contactToDelete);
         }));
 
-
         // Listen to person history button
         listeners.push(listen('click', '.contactHistory', e => {
             let contactToSe = e.target.closest('.table-row').getAttribute('data-index');
             let personToSe = contacts[contactToSe];
-            enableAndDisablePersonHistoryModal('enable')
+            this.enableAndDisablePersonHistory('enable');
             let newPersonName = document.querySelector('#newPersonName');
             let newPersonPhone = document.querySelector('#newPersonPhone');
             let newPersonEmail = document.querySelector('#newPersonEmail');
-            newPersonName.value = contactToSe.name;
+            newPersonName.value = personToSe.name;
             newPersonPhone.value = personToSe.phone;
             newPersonEmail.value = personToSe.email;
 
-            // enableDisableNameInput('disable');
+
+            let contact = {
+                'name': personToSe.name,
+                'phone': personToSe.phone,
+                'email': personToSe.email,
+            }
+
+            contact = { ...contact }
+            let oldContact = Object.assign({}, contact);
+            console.log(oldContact);
+            localStorage.setItem('contacts', JSON.stringify(contacts));
 
         }));
     };

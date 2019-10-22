@@ -8,6 +8,7 @@ class Store extends ContactBook {
                 contacts = JSON.parse(localStorage.getItem("contacts"));
             };
             this.reDrawDOMTable(contacts);
+
         };
         this.init()
     }

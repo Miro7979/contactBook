@@ -6,6 +6,7 @@ let wrapperDiv = document.createElement('div');
 wrapperDiv.innerHTML = '';
 body.append(wrapperDiv);
 wrapperDiv.setAttribute('class', 'wrapperDiv');
+wrapperDiv.setAttribute('id', 'wrapper');
 
 // Page headline
 let headerDiv = document.createElement('div');
@@ -34,7 +35,7 @@ let nameColumn = document.createElement('div');
 nameColumn.innerHTML = 'Namn';
 row.append(nameColumn);
 nameColumn.setAttribute('class', 'table-columnName');
-nameColumn.setAttribute('id', 'list');
+nameColumn.setAttribute('route', '/');
 
 let phoneColumn = document.createElement('div');
 phoneColumn.innerHTML = 'Telefonnummer';
@@ -63,7 +64,7 @@ span.setAttribute('id', 'tableBody');
 let backdrop = document.createElement('div');
 backdrop.innerHTML = '';
 wrapperDiv.append(backdrop);
-backdrop.setAttribute('class', 'enable-modal');
+backdrop.setAttribute('class', 'disable-modal');
 backdrop.setAttribute('id', 'backdrop');
 
 let newPersonModal = document.createElement('div');
@@ -72,23 +73,10 @@ wrapperDiv.append(newPersonModal);
 newPersonModal.setAttribute('class', 'disable-modal');
 newPersonModal.setAttribute('id', 'newPersonModal');
 
-// let modalHeader = document.createElement('h1');
-// modalHeader.innerHTML = 'Skapa ny kontakt';
-// newPersonModal.append(modalHeader);
-// modalHeader.setAttribute('class', 'modalHeader');
-
-// edit modal
-// let editPersonModal = document.createElement('div');
-// newPersonModal.innerHTML = '';
-// wrapperDiv.append(editPersonModal);
-// editPersonModal.setAttribute('class', 'disable-modal');
-// editPersonModal.setAttribute('id', 'editPersonModal');
-
-// edit modal header
-// let editModalHeader = document.createElement('h1');
-// editModalHeader.innerHTML = 'Ändra kontakt';
-// editPersonModal.append(editModalHeader);
-// editModalHeader.setAttribute('class', 'editModalHeader');
+let modalHeader = document.createElement('h1');
+modalHeader.innerHTML = 'Lägg till ny kontakt';
+newPersonModal.append(modalHeader);
+modalHeader.setAttribute('class', 'modalHeader');
 
 // label 1
 let newPersonNameLabel = document.createElement('label');
@@ -135,58 +123,104 @@ modalButtonCancel.setAttribute('id', 'newPersonCancelBtn');
 let modalButtonSubmit = document.createElement('button');
 modalButtonSubmit.innerHTML = 'Spara';
 newPersonModal.append(modalButtonSubmit);
-modalButtonSubmit.setAttribute('id', 'newPersonSubmitBtn');
+modalButtonSubmit.setAttribute('id', 'modalSubmitBtn');
+modalButtonSubmit.setAttribute('class', 'disable-button');
 
-// // submit edit button
-// let editSubmitButton = document.createElement('button');
-// editSubmitButton.innerHTML = 'Ändra';
-// newPersonModal.append(editSubmitButton);
-// editSubmitButton.setAttribute('id', 'editSubmitBtn');
 
 // person history modal
-let personHistoryModal = document.createElement('div');
-personHistoryModal.innerHTML = '';
-wrapperDiv.append(personHistoryModal);
-personHistoryModal.setAttribute('class', 'disable-modal');
-personHistoryModal.setAttribute('id', 'personHistoryModal');
+let personHistory = document.createElement('div');
+personHistory.innerHTML = '';
+wrapperDiv.append(personHistory);
+personHistory.setAttribute('class', 'disable-history');
+personHistory.setAttribute('id', 'personHistory');
 
-let historyModalHeader = document.createElement('h1');
-historyModalHeader.innerHTML = 'Kontakt historik';
-personHistoryModal.append(historyModalHeader);
-historyModalHeader.setAttribute('class', 'historyModalHeader');
+let historyHeader = document.createElement('h1');
+historyHeader.innerHTML = 'Redigera och se kontakt historik';
+personHistory.append(historyHeader);
+historyHeader.setAttribute('class', 'historyHeader');
 
-// new container
-// let newContainer = document.createElement('container');
-// newContainer.innerHTML = '';
-// body.append(newContainer);
-// newContainer.setAttribute('class', 'table-newContainer');
-// newContainer.setAttribute('id', 'tableNewContainer');
-// // new table
-// let tableNew = document.createElement('table');
-// tableNew.innerHTML = '';
-// newContainer.append(tableNew);
-// tableNew.setAttribute('class', 'tableNew');
-// // thead
-// let tableThead = document.createElement('thead');
-// tableThead.innerHTML = '';
-// tableNew.append(tableThead);
-// tableThead.setAttribute('class', 'tableThead' + '');
+let historyContent = document.createElement('div');
+historyContent.innerHTML = '';
+personHistory.append(historyContent);
+historyContent.setAttribute('class', 'historyContent');
 
-// // tr
-// let tableTr = document.createElement('tr');
-// tableNew.innerHTML = '';
-// thead.append(tableTr);
+// edit person form begins
+let editPersonForm = document.createElement('form');
+editPersonForm.innerHTML = '';
+historyContent.append(editPersonForm);
+// editPersonForm.setAttribute('action', '#');
+editPersonForm.setAttribute('id', 'editPersonForm');
+// editPersonForm.setAttribute('method', 'post');
 
-// // th
-// let tableThName = document.createElement('th');
-// tableThName.innerHTML = 'Namn';
-// tableTr.append(tableThName);
+// edit form div 1 name
+let editPersonFormDiv = document.createElement('div');
+editPersonFormDiv.innerHTML = '';
+editPersonForm.append(editPersonFormDiv);
+// editPersonFormDiv.setAttribute('class', 'form-box-error');
+// editPersonFormDiv.setAttribute('data-errormsg', '');
 
-// let tableThPhone = document.createElement('th');
-// tableThPhone.innerHTML = 'Telefonnummer';
-// tableTr.append(tableThPhone);
+// edit label 1 name
+let editPersonNameLabel = document.createElement('label');
+editPersonNameLabel.innerHTML = 'Ange nytt namn';
+editPersonFormDiv.append(editPersonNameLabel);
+editPersonNameLabel.setAttribute('for', 'input-name');
 
-// let tableThEmail = document.createElement('th');
-// tableThEmail.innerHTML = 'Email';
-// tableTr.append(tableThEmail);
+let editPersonNameInput = document.createElement('input');
+editPersonNameInput.innerHTML = '';
+editPersonFormDiv.append(editPersonNameInput);
+editPersonNameInput.setAttribute('type', 'text');
+editPersonNameInput.setAttribute('id', 'input-name');
+// editPersonNameInput.setAttribute('tabindex', '1');
+
+// edit form div 2 phone
+let editPersonFormDiv2 = document.createElement('div');
+editPersonFormDiv2.innerHTML = '';
+editPersonForm.append(editPersonFormDiv2);
+editPersonFormDiv2.setAttribute('class', 'form-box-error');
+editPersonFormDiv2.setAttribute('data-errormsg', '');
+
+// edit label 2 phone
+let editPersonPhoneLabel = document.createElement('label');
+editPersonPhoneLabel.innerHTML = 'Ange nytt telefonnummer';
+editPersonFormDiv2.append(editPersonPhoneLabel);
+editPersonPhoneLabel.setAttribute('for', 'input-phone');
+
+let editPersonPhoneInput = document.createElement('input');
+editPersonPhoneInput.innerHTML = '';
+editPersonFormDiv2.append(editPersonPhoneInput);
+editPersonPhoneInput.setAttribute('type', 'text');
+editPersonPhoneInput.setAttribute('id', 'input-phone');
+// editPersonPhoneInput.setAttribute('tabindex', '2');
+
+// edit form div 3 email
+let editPersonFormDiv3 = document.createElement('div');
+editPersonFormDiv3.innerHTML = '';
+editPersonForm.append(editPersonFormDiv3);
+editPersonFormDiv3.setAttribute('class', 'form-box-error');
+editPersonFormDiv3.setAttribute('data-errormsg', '');
+
+// edit label 3 email
+let editPersonEmailLabel = document.createElement('label');
+editPersonEmailLabel.innerHTML = 'Ange nytt email adress';
+editPersonFormDiv3.append(editPersonEmailLabel);
+editPersonEmailLabel.setAttribute('for', 'input-email');
+
+let editPersonEmailInput = document.createElement('input');
+editPersonEmailInput.innerHTML = '';
+editPersonFormDiv3.append(editPersonEmailInput);
+editPersonEmailInput.setAttribute('type', 'text');
+editPersonEmailInput.setAttribute('id', 'input-email');
+// editPersonEmailInput.setAttribute('tabindex', '3');
+
+// edit form button
+let editFormSubmitButton = document.createElement('button');
+editFormSubmitButton.innerHTML = 'Ändra';
+editPersonForm.append(editFormSubmitButton);
+editFormSubmitButton.setAttribute('id', 'editFormSubmitBtn');
+editFormSubmitButton.setAttribute('class', 'disable-button');
+
+let editFormCancelButton = document.createElement('button');
+editFormCancelButton.innerHTML = 'Avbryt';
+editPersonForm.append(editFormCancelButton);
+editFormCancelButton.setAttribute('id', 'editFormCancelBtn');
 

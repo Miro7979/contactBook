@@ -29,26 +29,6 @@ html {
 	font-size: 60px;
 	text-shadow: 5px 5px 5px gray;
 }
-.searchRow {
-	display: flex;
-	flex-basis: 100%;
-}
-
-#search {
-	flex-basis: 25%;
-	margin: 5px 0 5px 0;
-	display: center;
-	border-radius: 5px;
-}
-.searchButton {
-	flex-basis: 10%;
-	padding: 10px;
-	border-radius: 5px;
-	border: none;
-	float: right;
-	cursor: pointer;
-}
-
 .table-container {
 	font-size: 30px;
 	margin-top: 100px;
@@ -108,12 +88,8 @@ html {
 	margin-left: calc(50% - 250px);
 	background-color: rgb(130, 184, 228);
 }
+
 .modalHeader {
-	font-size: 30px;
-	font-family: 'Righteous', cursive;
-	text-align: center;
-}
-.editModalHeader {
 	font-size: 30px;
 	font-family: 'Righteous', cursive;
 	text-align: center;
@@ -125,13 +101,28 @@ html {
 	margin-bottom: 15px;
 	padding: 10px;
 	border: 1px;
-	width: 80%;
+	width: 90%;
+}
+.editModalHeader {
+	font-size: 30px;
+	font-family: 'Righteous', cursive;
+	text-align: center;
+}
+
+#editPersonModal input {
+	display: block;
+	display: center;
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px;
+	width: 90%;
 }
 
 .input-err {
 	background-color: rgb(250, 232, 68);
 }
 #backdrop {
+	/* display: none; */
 	width: 100%;
 	height: 100%;
 	background-color: rgb(0, 0, 0.8);
@@ -144,10 +135,16 @@ html {
 	background-color: rgb(233, 59, 59);
 }
 
-#newPersonSubmitBtn {
+#modalSubmitBtn {
 	background-color: rgb(162, 241, 116);
 }
+#editFormCancelBtn {
+	background-color: rgb(233, 59, 59);
+}
 
+#editFormSubmitBtn {
+	background-color: rgb(162, 241, 116);
+}
 button {
 	padding: 15px;
 	border-radius: 5px;
@@ -158,7 +155,7 @@ button {
 }
 
 button:hover {
-	border: blue;
+	color: white;
 }
 
 .disable-modal {
@@ -167,11 +164,10 @@ button:hover {
 .enable-modal {
 	visibility: visible;
 }
-
-.enable-header {
+.disable-history {
 	visibility: hidden;
 }
-.disable-header {
+.enable-history {
 	visibility: visible;
 }
 
@@ -192,8 +188,21 @@ i {
 	font-size: 20px;
 }
 
-#clearLocalStorageBtn {
-	position: absolute;
-	right: 10px;
-	bottom: 5px;
+.historyContent {
+	padding: 20px;
+	background-color: rgb(69, 89, 133);
+	width: 500px;
+	height: 300px;
+	display: block;
+}
+
+#input-name,
+#input-phone,
+#input-email {
+	display: block;
+	display: center;
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px;
+	width: 90%;
 }
