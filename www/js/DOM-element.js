@@ -85,7 +85,6 @@ newPersonModal.append(newPersonNameLabel);
 newPersonNameLabel.setAttribute('for', 'newPersonName');
 
 let newPersonNameInput = document.createElement('input');
-newPersonNameInput.innerHTML = '';
 newPersonModal.append(newPersonNameInput);
 newPersonNameInput.setAttribute('type', 'text');
 newPersonNameInput.setAttribute('id', 'newPersonName');
@@ -148,16 +147,12 @@ historyContent.setAttribute('class', 'historyContent');
 let editPersonForm = document.createElement('form');
 editPersonForm.innerHTML = '';
 historyContent.append(editPersonForm);
-// editPersonForm.setAttribute('action', '#');
 editPersonForm.setAttribute('id', 'editPersonForm');
-// editPersonForm.setAttribute('method', 'post');
 
 // edit form div 1 name
 let editPersonFormDiv = document.createElement('div');
 editPersonFormDiv.innerHTML = '';
 editPersonForm.append(editPersonFormDiv);
-// editPersonFormDiv.setAttribute('class', 'form-box-error');
-// editPersonFormDiv.setAttribute('data-errormsg', '');
 
 // edit label 1 name
 let editPersonNameLabel = document.createElement('label');
@@ -170,7 +165,6 @@ editPersonNameInput.innerHTML = '';
 editPersonFormDiv.append(editPersonNameInput);
 editPersonNameInput.setAttribute('type', 'text');
 editPersonNameInput.setAttribute('id', 'input-name');
-// editPersonNameInput.setAttribute('tabindex', '1');
 
 // edit form div 2 phone
 let editPersonFormDiv2 = document.createElement('div');
@@ -190,7 +184,6 @@ editPersonPhoneInput.innerHTML = '';
 editPersonFormDiv2.append(editPersonPhoneInput);
 editPersonPhoneInput.setAttribute('type', 'text');
 editPersonPhoneInput.setAttribute('id', 'input-phone');
-// editPersonPhoneInput.setAttribute('tabindex', '2');
 
 // edit form div 3 email
 let editPersonFormDiv3 = document.createElement('div');
@@ -210,7 +203,6 @@ editPersonEmailInput.innerHTML = '';
 editPersonFormDiv3.append(editPersonEmailInput);
 editPersonEmailInput.setAttribute('type', 'text');
 editPersonEmailInput.setAttribute('id', 'input-email');
-// editPersonEmailInput.setAttribute('tabindex', '3');
 
 // edit form button
 let editFormSubmitButton = document.createElement('button');

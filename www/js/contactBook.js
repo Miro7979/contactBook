@@ -3,24 +3,44 @@ class ContactBook {
     constructor(contacts, listeners) {
         this.contacts = contacts;
         this.listeners = listeners;
-        this.reDrawDOMTable();
+        // this.reDrawDOMTable();
 
     }
 
     addEditContact = () => {
 
-        let editContact = [{
-            'id': Date.now(),
-            'name': document.querySelector('#input-name').value,
-            'phone': document.querySelector('#input-phone').value,
-            'email': document.querySelector('#input-email').value
-        }];
+        let editPerson = {
+            name: document.querySelector('#input-name').value,
+            phone: document.querySelector('#input-phone').value,
+            email: document.querySelector('#input-email').value
+        };
 
-        console.log(contacts);
-        localStorage.setItem("editContactList", JSON.stringify(editContact));
+        console.log(contacts[0])
+        console.log(editPerson)
+
+        // contact = contact[0]
+
+        // let saveEditPerson = {
+        //     id: Date.now(),
+        //     name: editPerson.name,
+        //     phone: editPerson.phone,
+        //     email: editPerson.email,
+        // };
+
+        // editPerson = {
+        //     history: [saveEditPerson]
+        // }
+
+        // console.log(editPerson);
+        // contacts = {
+        //     ...editPerson,
+        //     contacts
+        // };
+
+        //localStorage.setItem("contacts", JSON.stringify(contacts));
         this.reDrawDOMTable();
-
     };
+
     enableAndDisablePersonHistory = (option) => {
         let newPersonName = document.querySelector('#newPersonName');
         let newPersonPhone = document.querySelector('#newPersonPhone');
@@ -45,6 +65,8 @@ class ContactBook {
         newTableBody.setAttribute('id', 'tableBody');
         tableContainer.append(newTableBody);
 
+
+
         for (let i = 0; i < contacts.length; i++) {
             let currentRow = document.createElement('div');
             let currentNameCol = document.createElement('div');
@@ -56,6 +78,7 @@ class ContactBook {
 
             currentRow.className = 'table-row';
             currentRow.setAttribute('data-index', i);
+            currentRow.setAttribute('data-parent', contacts[i].id);
             currentNameCol.className = 'table-column name';
             currentPhoneCol.className = 'table-column phone';
             currentEmailCol.className = 'table-column email';
@@ -66,9 +89,9 @@ class ContactBook {
             // create history button
             currentContactHistory.className = 'table-column contactHistory i';
 
-            currentNameCol.innerHTML = contacts[i].name;
-            currentPhoneCol.innerHTML = contacts[i].phone;
-            currentEmailCol.innerHTML = contacts[i].email;
+            currentNameCol.innerHTML = contacts[i].history[contacts[i].position].name;
+            currentPhoneCol.innerHTML = contacts[i].history[contacts[i].position].phone;
+            currentEmailCol.innerHTML = contacts[i].history[contacts[i].position].email;
             currentDeleteBtn.innerHTML = '<i class="fas fa-trash-alt"></i>';
             currentEditBtn.innerHTML = '<i class="fas fa-edit"></i>';
             currentContactHistory.innerHTML = '<i class="fas fa-history"></i>';
@@ -130,16 +153,23 @@ class ContactBook {
                 document.querySelector('#newPersonEmail').className = 'input-err';
             else
                 document.querySelector('#newPersonEmail').className = '';
-            if (newPersonName !== '' && newPersonPhone !== '' && newPersonEmail !== '') {
+            if (newPersonName !== '') {
+
                 let newPerson = {
-                    'id': Date.now(),
                     'name': newPersonName,
                     'phone': newPersonPhone,
                     'email': newPersonEmail,
                 };
+
+                let newContact = {
+                    id: Date.now(),
+                    position: 0,
+                    history: [newPerson]
+                }
+
                 contacts = [
                     ...contacts,
-                    newPerson
+                    newContact
                 ];
 
                 localStorage.setItem("contacts", JSON.stringify(contacts));
@@ -168,7 +198,16 @@ class ContactBook {
             let inputs = [...document.querySelectorAll('#newPersonModal input')];
             for (input of inputs) { input.className = ''; }
             let contactToEdit = e.target.closest('.table-row').getAttribute('data-index');
-            let personToEdit = contacts[contactToEdit];
+            let id = e.target.closest('.table-row').getAttribute('data-parent')
+
+            let contact = contacts.filter(contact => {
+                if (contact.id == id) {
+                    return contact;
+                }
+            })
+            contact = contact[0]
+            let personToEdit = contact.history[contact.position];
+
             this.enableAndDisablePersonHistory('enable');
             let newPersonName = document.querySelector('#input-name');
             let newPersonPhone = document.querySelector('#input-phone');
