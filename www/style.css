@@ -103,20 +103,20 @@ html {
 	border: 1px;
 	width: 90%;
 }
-.editModalHeader {
+/* .editModalHeader {
 	font-size: 30px;
 	font-family: 'Righteous', cursive;
 	text-align: center;
-}
+} */
 
-#editPersonModal input {
+/* #editPersonModal input {
 	display: block;
 	display: center;
 	margin-bottom: 15px;
 	padding: 10px;
 	border: 1px;
 	width: 90%;
-}
+} */
 
 .input-err {
 	background-color: rgb(250, 232, 68);
@@ -164,10 +164,10 @@ button:hover {
 .enable-modal {
 	visibility: visible;
 }
-.disable-history {
+.disable-editPerson {
 	visibility: hidden;
 }
-.enable-history {
+.enable-editPerson {
 	visibility: visible;
 }
 
@@ -188,12 +188,16 @@ i {
 	font-size: 20px;
 }
 
-.historyContent {
-	padding: 20px;
-	background-color: rgb(69, 89, 133);
+.editPersonContent {
+	background-color: rgb(236, 161, 62);
 	width: 500px;
-	height: 300px;
-	display: block;
+	padding: 10px;
+	border-radius: 5px;
+	z-index: 99;
+	top: 50px;
+	position: absolute;
+	display: center center;
+	margin-left: calc(50% - 250px);
 }
 
 #input-name,
@@ -205,4 +209,48 @@ i {
 	padding: 10px;
 	border: 1px;
 	width: 90%;
+}
+
+.seContactHistory {
+	background-color: rgb(75, 205, 214);
+	width: 500px;
+	padding: 10px;
+	border-radius: 5px;
+	z-index: 99;
+	top: 50px;
+	position: absolute;
+	display: center center;
+	margin-left: calc(50% - 250px);
+}
+#input-historyName,
+#input-historyPhone,
+#input-historyEmail {
+	display: block;
+	display: center;
+	margin-bottom: 15px;
+	padding: 10px;
+	border: 1px;
+	width: 90%;
+}
+#historyPersonCancelBtn {
+	background-color: rgb(233, 59, 59);
+}
+
+#historyPersonSubmitBtn {
+	background-color: rgb(162, 241, 116);
+}
+
+#historyPersonNextBtn {
+	background-color: rgb(135, 109, 248);
+}
+
+#historyPersonPrevBtn {
+	background-color: rgb(135, 109, 248);
+}
+
+.disable-history {
+	visibility: hidden;
+}
+.enable-history {
+	visibility: visible;
 }

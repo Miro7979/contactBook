@@ -10,7 +10,7 @@ wrapperDiv.setAttribute('id', 'wrapper');
 
 // Page headline
 let headerDiv = document.createElement('div');
-headerDiv.innerHTML = 'Min Kontakt Bok';
+headerDiv.innerHTML = 'Min Kontaktbok';
 wrapperDiv.append(headerDiv);
 headerDiv.setAttribute('class', 'pageHeader');
 
@@ -126,27 +126,29 @@ modalButtonSubmit.setAttribute('id', 'modalSubmitBtn');
 modalButtonSubmit.setAttribute('class', 'disable-button');
 
 
-// person history modal
-let personHistory = document.createElement('div');
-personHistory.innerHTML = '';
-wrapperDiv.append(personHistory);
-personHistory.setAttribute('class', 'disable-history');
-personHistory.setAttribute('id', 'personHistory');
+// edit person  and push it to history 
+let editPerson = document.createElement('div');
+editPerson.innerHTML = '';
+wrapperDiv.append(editPerson);
+editPerson.setAttribute('class', 'disable-editPerson');
+editPerson.setAttribute('id', 'editPerson');
 
-let historyHeader = document.createElement('h1');
-historyHeader.innerHTML = 'Redigera och se kontakt historik';
-personHistory.append(historyHeader);
-historyHeader.setAttribute('class', 'historyHeader');
 
-let historyContent = document.createElement('div');
-historyContent.innerHTML = '';
-personHistory.append(historyContent);
-historyContent.setAttribute('class', 'historyContent');
+let editPersonContent = document.createElement('div');
+editPersonContent.innerHTML = '';
+editPerson.append(editPersonContent);
+editPersonContent.setAttribute('class', 'editPersonContent');
+
+// Edit person modal header
+let editPersonHeader = document.createElement('h1');
+editPersonHeader.innerHTML = 'Redigera kontakt';
+editPersonContent.append(editPersonHeader);
+editPersonHeader.setAttribute('class', 'editPersonHeader');
 
 // edit person form begins
 let editPersonForm = document.createElement('form');
 editPersonForm.innerHTML = '';
-historyContent.append(editPersonForm);
+editPersonContent.append(editPersonForm);
 editPersonForm.setAttribute('id', 'editPersonForm');
 
 // edit form div 1 name
@@ -156,7 +158,7 @@ editPersonForm.append(editPersonFormDiv);
 
 // edit label 1 name
 let editPersonNameLabel = document.createElement('label');
-editPersonNameLabel.innerHTML = 'Ange nytt namn';
+editPersonNameLabel.innerHTML = 'Ändra namn';
 editPersonFormDiv.append(editPersonNameLabel);
 editPersonNameLabel.setAttribute('for', 'input-name');
 
@@ -175,7 +177,7 @@ editPersonFormDiv2.setAttribute('data-errormsg', '');
 
 // edit label 2 phone
 let editPersonPhoneLabel = document.createElement('label');
-editPersonPhoneLabel.innerHTML = 'Ange nytt telefonnummer';
+editPersonPhoneLabel.innerHTML = 'Ändra telefonnummer';
 editPersonFormDiv2.append(editPersonPhoneLabel);
 editPersonPhoneLabel.setAttribute('for', 'input-phone');
 
@@ -194,7 +196,7 @@ editPersonFormDiv3.setAttribute('data-errormsg', '');
 
 // edit label 3 email
 let editPersonEmailLabel = document.createElement('label');
-editPersonEmailLabel.innerHTML = 'Ange nytt email adress';
+editPersonEmailLabel.innerHTML = 'Ändra email adress';
 editPersonFormDiv3.append(editPersonEmailLabel);
 editPersonEmailLabel.setAttribute('for', 'input-email');
 
@@ -215,4 +217,86 @@ let editFormCancelButton = document.createElement('button');
 editFormCancelButton.innerHTML = 'Avbryt';
 editPersonForm.append(editFormCancelButton);
 editFormCancelButton.setAttribute('id', 'editFormCancelBtn');
+
+// se contact history
+let contactHistoryDiv = document.createElement('div');
+contactHistoryDiv.innerHTML = '';
+wrapperDiv.append(contactHistoryDiv);
+contactHistoryDiv.setAttribute('class', 'disable-history');
+contactHistoryDiv.setAttribute('id', 'contactHistoryDiv');
+
+
+let seContactHistoryDiv = document.createElement('div');
+seContactHistoryDiv.innerHTML = '';
+contactHistoryDiv.append(seContactHistoryDiv);
+seContactHistoryDiv.setAttribute('class', 'seContactHistory');
+
+// Contact history header
+let contactHistoryHeader = document.createElement('h1');
+contactHistoryHeader.innerHTML = 'Se kontakt historik';
+seContactHistoryDiv.append(contactHistoryHeader);
+contactHistoryHeader.setAttribute('class', 'contactHistoryHeader');
+
+// history label 1 name
+let historyPersonNameLabel = document.createElement('label');
+historyPersonNameLabel.innerHTML = 'Namn';
+seContactHistoryDiv.append(historyPersonNameLabel);
+historyPersonNameLabel.setAttribute('for', 'input-historyName');
+
+let historyPersonNameInput = document.createElement('input');
+historyPersonNameInput.innerHTML = '';
+seContactHistoryDiv.append(historyPersonNameInput);
+historyPersonNameInput.setAttribute('type', 'text');
+historyPersonNameInput.setAttribute('id', 'input-historyName');
+
+// history label 2 phone
+let historyPersonPhoneLabel = document.createElement('label');
+historyPersonPhoneLabel.innerHTML = 'Telefonnummer';
+seContactHistoryDiv.append(historyPersonPhoneLabel);
+historyPersonPhoneLabel.setAttribute('for', 'input-historyPhone');
+
+let historyPersonPhoneInput = document.createElement('input');
+historyPersonPhoneInput.innerHTML = '';
+seContactHistoryDiv.append(historyPersonPhoneInput);
+historyPersonPhoneInput.setAttribute('type', 'text');
+historyPersonPhoneInput.setAttribute('id', 'input-historyPhone');
+
+// history label 3 email
+let historyPersonEmailLabel = document.createElement('label');
+historyPersonEmailLabel.innerHTML = 'Email adress';
+seContactHistoryDiv.append(historyPersonEmailLabel);
+historyPersonEmailLabel.setAttribute('for', 'input-historyEmail');
+
+let historyPersonEmailInput = document.createElement('input');
+historyPersonEmailInput.innerHTML = '';
+seContactHistoryDiv.append(historyPersonEmailInput);
+historyPersonEmailInput.setAttribute('type', 'text');
+historyPersonEmailInput.setAttribute('id', 'input-historyEmail');
+
+// made contact active button
+let historyPersonSubmitButton = document.createElement('button');
+historyPersonSubmitButton.innerHTML = 'Aktivera';
+seContactHistoryDiv.append(historyPersonSubmitButton);
+historyPersonSubmitButton.setAttribute('id', 'historyPersonSubmitBtn');
+
+
+// next contact button
+let historyPersonNextButton = document.createElement('button');
+historyPersonNextButton.innerHTML = 'Nästa';
+seContactHistoryDiv.append(historyPersonNextButton);
+historyPersonNextButton.setAttribute('id', 'historyPersonNextBtn');
+
+
+// prev contact button
+let historyPersonPrevButton = document.createElement('button');
+historyPersonPrevButton.innerHTML = 'Förra';
+seContactHistoryDiv.append(historyPersonPrevButton);
+historyPersonPrevButton.setAttribute('id', 'historyPersonPrevBtn');
+
+// history contact cancel button
+let historyPersonCancelButton = document.createElement('button');
+historyPersonCancelButton.innerHTML = 'Avbryt';
+seContactHistoryDiv.append(historyPersonCancelButton);
+historyPersonCancelButton.setAttribute('id', 'historyPersonCancelBtn');
+
 
