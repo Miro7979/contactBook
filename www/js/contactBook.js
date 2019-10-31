@@ -7,7 +7,7 @@ class ContactBook {
 
     }
 
-    addEditContact = () => {
+    addEditContact = (dataKey) => {
 
         let editPerson = {
             name: document.querySelector('#input-name').value,
@@ -15,33 +15,19 @@ class ContactBook {
             email: document.querySelector('#input-email').value
         };
 
-        console.log(contacts[0])
-        console.log(editPerson)
+        // console.log(contacts[0])
+        // console.log(editPerson)
 
-        // contact = contact[0]
+        let contact = contacts[dataKey];
+        contact.history.push(editPerson)
+        contact.position++;
 
-        // let saveEditPerson = {
-        //     id: Date.now(),
-        //     name: editPerson.name,
-        //     phone: editPerson.phone,
-        //     email: editPerson.email,
-        // };
-
-        // editPerson = {
-        //     history: [saveEditPerson]
-        // }
-
-        // console.log(editPerson);
-        // contacts = {
-        //     ...editPerson,
-        //     contacts
-        // };
-
-        //localStorage.setItem("contacts", JSON.stringify(contacts));
+        localStorage.setItem("contacts", JSON.stringify(contacts));
+        this.enableAndDisablePersonHistory('disable');
         this.reDrawDOMTable();
     };
 
-    enableAndDisablePersonHistory = (option) => {
+    enableAndDisablePersonHistory = (option, key) => {
         let newPersonName = document.querySelector('#newPersonName');
         let newPersonPhone = document.querySelector('#newPersonPhone');
         let newPersonEmail = document.querySelector('#newPersonEmail');
@@ -51,6 +37,7 @@ class ContactBook {
 
         let personHistory = document.querySelector('#personHistory');
         personHistory.className = `${option}-history`;
+        personHistory.setAttribute('data-index', key)
 
 
     };
@@ -208,7 +195,7 @@ class ContactBook {
             contact = contact[0]
             let personToEdit = contact.history[contact.position];
 
-            this.enableAndDisablePersonHistory('enable');
+            this.enableAndDisablePersonHistory('enable', contactToEdit);
             let newPersonName = document.querySelector('#input-name');
             let newPersonPhone = document.querySelector('#input-phone');
             let newPersonEmail = document.querySelector('#input-email');
@@ -222,12 +209,10 @@ class ContactBook {
             if (e.target.closest('#editFormSubmitBtn')) {
                 e.preventDefault();
 
-                this.addEditContact();
-                localStorage.setItem("contacts", JSON.stringify(contacts));
+                let dataKeyHolder = document.querySelector('#personHistory');
+                let dataKey = dataKeyHolder.getAttribute('data-index');
 
-
-                this.enableAndDisablePersonHistory('disable');
-                this.reDrawDOMTable();
+                this.addEditContact(dataKey);
             }
         }));
 
