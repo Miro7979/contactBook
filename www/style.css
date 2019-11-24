@@ -103,20 +103,6 @@ html {
 	border: 1px;
 	width: 90%;
 }
-/* .editModalHeader {
-	font-size: 30px;
-	font-family: 'Righteous', cursive;
-	text-align: center;
-} */
-
-/* #editPersonModal input {
-	display: block;
-	display: center;
-	margin-bottom: 15px;
-	padding: 10px;
-	border: 1px;
-	width: 90%;
-} */
 
 .input-err {
 	background-color: rgb(250, 232, 68);

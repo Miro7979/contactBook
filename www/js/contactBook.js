@@ -35,18 +35,6 @@ class ContactBook {
     editPerson.setAttribute('data-index', key)
   };
 
-  enableAndDeisablePersonHistoryContent = (option, key) => {
-    let newPersonName = document.querySelector('#newPersonName');
-    let newPersonPhone = document.querySelector('#newPersonPhone');
-    let newPersonEmail = document.querySelector('#newPersonEmail');
-    newPersonName.value = '';
-    newPersonPhone.value = '';
-    newPersonEmail.value = '';
-
-    let contactHistoryDiv = document.querySelector('#contactHistoryDiv');
-    contactHistoryDiv.className = `${option}-history`;
-    contactHistoryDiv.setAttribute('data-index', key)
-  };
   // only push to inside reDrawDOMTable because that function 
   // also kills the old listeners each time it runs
   reDrawDOMTable = () => {
@@ -305,9 +293,7 @@ class ContactBook {
         if (contact.id == id) {
           return contact;
         }
-      })
-
-
+      });
 
       // Update contact position and save
       contact[0].position = newPositionKey
@@ -326,7 +312,6 @@ class ContactBook {
     listeners.push(listen('click', '#historyPersonCancelBtn', e => {
       if (e.target.closest('#historyPersonCancelBtn')) {
         e.preventDefault();
-        this.enableAndDeisablePersonHistoryContent('disable');
       }
     }));
   };
