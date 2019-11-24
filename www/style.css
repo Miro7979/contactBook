@@ -254,3 +254,34 @@ i {
 .enable-history {
 	visibility: visible;
 }
+
+.hidden {
+	display: none;
+}
+
+.historyCard {
+	font-size: 1rem;
+	background: rgb(146, 146, 146);
+	color: black;
+	padding: 20px;
+	margin-bottom: 10px;
+}
+
+.historyCard:hover {
+	background: #eee;
+}
+
+.historyCard.chosen {
+	background: green;
+}
+
+.historyCardButton {
+	background: green;
+	padding: 10px;
+	cursor: pointer;
+}
+.cancelHistoryChange {
+	background: red;
+	padding: 10px;
+	cursor: pointer;
+}
